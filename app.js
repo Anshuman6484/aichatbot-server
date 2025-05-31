@@ -12,9 +12,6 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors())
 
-// Connect to DB
-connectDB()
-
 // Routes
 app.use('/api/auth', authRoutes)
 
