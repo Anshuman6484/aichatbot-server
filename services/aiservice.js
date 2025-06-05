@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export const callAI = async (prompt) => {
+export const callAI = async (messages) => {
   const response = await axios.post(
     `${process.env.API_URL}`,
     {
       model: `${process.env.AI_MODEL}`,
-      messages: [{ role: 'user', content: prompt }],
+      messages,
     },
     {
       headers: {
