@@ -1,14 +1,25 @@
-import { callAI } from '../services/aiservice.js'
+import { handleChatMessage } from '../services/chatService.js'
 
 export const askAI = async (req, res) => {
   try {
-    const { messages } = req.body
-    if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ msg: 'Please provide a valid messages array' })
+    const { userId, content, conversationId } = req.body
+
+    if (!userId || !content) {
+      return res.status(400).json({ error: 'Missing userId or content' })
     }
-    const output = await callAI(messages)
-    res.status(200).json({ output })
+
+    const { response, error } = await handleChatMessage(
+      userId,
+      content,
+      conversationId
+    )
+    if (error) {
+      return res.status(400).json({ error })
+    }
+
+    res.status(200).json({ output: response })
   } catch (err) {
-    res.status(500).json({ msg: err.message })
+    console.log('askAI error', err)
+    res.status(500).json({ error: err.message })
   }
 }
