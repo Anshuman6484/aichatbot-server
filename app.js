@@ -11,9 +11,9 @@ import conversationRoutes from './routes/conversationRoutes.js'
 const app = express()
 
 // Middlewares
+app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
-app.use(cors())
 
 // Connect to DB
 connectDB()
