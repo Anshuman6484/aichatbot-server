@@ -13,9 +13,7 @@ const app = express()
 // Middlewares
 app.use(morgan('dev'))
 app.use(express.json())
-app.use(cors({
-    origin: '*'
-}))
+app.use(cors())
 
 // Connect to DB
 connectDB()
