@@ -11,7 +11,9 @@ import conversationRoutes from './routes/conversationRoutes.js'
 const app = express()
 
 // Middlewares
-app.use(cors())
+app.use(cors({
+    origin: process.env.CLIENT_URL
+}))
 app.use(morgan('dev'))
 app.use(express.json())
 
