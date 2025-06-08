@@ -1,5 +1,6 @@
 import express from 'express'
 import {
+  deleteConversation,
   getAllConversations,
   renameConversation,
   startNewConversation,
@@ -15,5 +16,8 @@ router.get('/conversations/:userId', getAllConversations)
 
 // rename conversation
 router.patch('/conversations/rename/:conversationId', renameConversation)
+
+// delete conversation
+router.delete('/conversations/remove/:conversationId', deleteConversation)
 
 export default router

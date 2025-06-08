@@ -1,4 +1,5 @@
 import Conversation from '../models/conversation.js'
+import ChatMessage from '../models/chatMessage.js'
 
 export const startNewConversation = async (req, res) => {
   try {
@@ -55,5 +56,17 @@ export const renameConversation = async (req, res) => {
   } catch (err) {
     console.log('error renaming conversation', err)
     res.status(500).json({ error: 'failed to rename conversation' })
+  }
+}
+
+export const deleteConversation = async (req, res) => {
+  try {
+    const { conversationId } = req.params
+    await Conversation.findByIdAndDelete(conversationId)
+    await ChatMessage.deleteMany({ conversationId })
+    res.status(200).json({ msg: 'conversation deleted successfully' })
+  } catch (err) {
+    console.log('error deleting conversation', err)
+    res.status(500).json({ error: 'failed to delete conversation' })
   }
 }
